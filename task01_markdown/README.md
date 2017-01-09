@@ -41,6 +41,7 @@
 > - [4.1 Stackedit](#4.1)
 > - [4.2 Jbt](#4.2)
 > - [4.3 Tablesgenerator](#4.3)
+
 > -----------------------------
 
 ###1. Tìm hiểu xem markdown là gì? Dùng để làm gì?<a name="1"></a>
@@ -238,14 +239,14 @@ hoặc bạn có thể chạy ngay trên máy
 
 ![](http://i.imgur.com/uWtMjzR.png)
 
-###4. các công cụ Editor:<a = name="4"></a>
-####4.1 stackedit <a =name="4.1"></a>
+###4. các công cụ Editor:<a name="4"></a>
+####4.1 stackedit <a name="4.1"></a>
 > [stackedit](https://stackedit.io/editor)
 
-####4.2 JBT <a= name ="4.2"></a>
+####4.2 JBT <a name="4.2"></a>
 > [Jbt](http://jbt.github.io/markdown-editor/)
 
-####4.3 Tablesgenerator <a = name="4.3"></a>
+####4.3 Tablesgenerator <a name="4.3"></a>
 > [Tablesgenerator](http://www.tablesgenerator.com/markdown_tables)
 
 
