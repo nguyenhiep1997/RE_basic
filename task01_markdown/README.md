@@ -36,7 +36,7 @@
 <li> [3.3.2 Markdown Preview](#3.3.2)</li>
 </ul>
 >
-[4. Các công cụ Editor](#4)
+[4. các công cụ Editor](#4)
 > 
 > - [4.1 Stackedit](#4.1)
 > - [4.2 Jbt](#4.2)
