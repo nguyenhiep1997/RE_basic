@@ -239,6 +239,6 @@ hoặc bạn có thể chạy ngay trên máy
 ![](http://i.imgur.com/uWtMjzR.png)
 
 ### 4. các công cụ Editor:<a = name="4"></a>
-[stackedit](https://stackedit.io/editor)<a =name="4.1"></a>
-[Jbt](http://jbt.github.io/markdown-editor/)<a= name ="4.2"></a>
-[Tablesgenerator](http://www.tablesgenerator.com/markdown_tables)<a = name="4.3"></a>
+> [stackedit](https://stackedit.io/editor)<a =name="4.1"></a>
+> [Jbt](http://jbt.github.io/markdown-editor/)<a= name ="4.2"></a>
+> [Tablesgenerator](http://www.tablesgenerator.com/markdown_tables)<a = name="4.3"></a>
