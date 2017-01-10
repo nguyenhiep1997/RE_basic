@@ -1,300 +1,363 @@
-### lập trình hợp ngữ (assembly)
+##Báo cáo
 
-> tài liệu tham khảo : [assembly](http://bit.ly/2iryedL)
-> 
-> thực hiện bởi : Nguyễn Văn Hiệp
->
->cập nhật ngày 09 - 01 - 2017
+#Lập Trình Hợp Ngữ(Assembly)
 
-----
+>	Tài liệu tham khảo : [assembly](http://bit.ly/2iZ45FN)
 
-###mục lục:
+>	Thực hiện:  Nguyễn Văn HIệp
 
-- [-1. cấu trúc chương trình](#muc1)
-<ul>
-<li>[1.1 trình biên dịch NASM](#muc1.1) 1</li>
-<li>[1.2 trình biên dịch MASM](#muc1.2) 1</li>
-</ul>
-- [2. toán tử và các lệnh đơn giản](#muc2)
-- [3. các lệnh cơ bản](#muc3)
-- [4. lệnh và ngắt ra vào dòng nhập chuẩn](#muc4)
-- [5. cài đặt emu8086](#muc5)
+>	Cập nhật lần cuối: 10/01/2017
+> ---------------------
 
-----
+###Mục Lục
+[1. Cấu trúc chương trình Assembly](#1)
 
-> #### tổng quan về assembly
+ - [1.1 Tổng quan](#1.1)
+ 
+ - [1.2. Cú pháp câu lệnh Assembly](#1.2)
 
-> -Ngôn ngữ assembly (còn gọi là hợp ngữ) là một ngôn ngữ bậc thấp được dùng trong việc viết các chương trình máy tính. Ngôn ngữ assembly sử dụng các từ có tính gợi nhớ, các từ viết tắt để giúp ta dễ ghi nhớ các chỉ thị phức tạp và làm cho việc lập trình bằng assembly dễ dàng hơn. Mục đích của việc dùng các từ gợi nhớ là nhằm thay thế việc lập trình trực tiếp bằng ngôn ngữ máy được sử dụng trong các máy tính đầu tiên thường gặp nhiều lỗi và tốn thời gian. Một chương trình viết bằng ngôn ngữ assembly được dịch thành mã máy bằng một chương trình tiện ích được gọi là assembler (Một chương trình assembler khác với một trình biên dịch ở chỗ nó chuyển đổi mỗi lệnh của chương trình assembly thành một lệnh Các chương trình viết bằng ngôn ngữ assembly liên quan rất chặt chẽ đến kiến trúc của máy tính. Điều này khác với ngôn ngữ lập trình bậc cao, ít phụ thuộc vào phần cứng. 
+ - [1.3. Cấu trúc chương chình hợp ngữ dùng cho tập tin thực thi ***.EXE**](#1.3)
 
-> -Trước đây ngôn ngữ assembly được sử dụng khá nhiều nhưng ngày nay phạm vi sử dụng khá hẹp, chủ yếu trong việc thao tác trực tiếp với phần cứng hoặc làm các công việc không thường xuyên. Ngôn ngữ này thường được dùng cho trình điều khiển (tiếng Anh: driver), hệ nhúng bậc thấp (tiếng Anh: low-level embedded systems) và các hệ thời gian thực. Những ứng dụng này có ưu điểm là tốc độ xử lí các lệnh assembly nhanh.
+ - [1.4. Cấu trúc chương trình hợp ngữ dành cho tập tin lệnh ***.com**](#1.4)
 
-> -Ngôn ngữ máy cực kỳ khó hiểu đối với lập trình viên vì thế họ không thể sử dụng trực tiếp ngôn ngữ máy để viết chương trình. Một sự trừu tượng khác là ngôn ngữ assembly. Nó cung cấp những tên dễ nhớ cho các lệnh và một ký hiệu dễ hiểu hơn cho dữ liệu. Bộ dịch được gọi là assembler chuyển ngôn ngữ assembly sang ngôn ngữ máy. Ngay cả những ngôn ngữ assembly cũng khó sử dụng. Những ngôn ngữ cấp cao như C++ cung cấp các ký hiệu thuận tiện hơn nhiều cho việc thi hành các giải thuật. Chúng giúp cho các lập trình viên không phải nghĩ nhiều về các thuật ngữ cấp thấp, và giúp họ chỉ tập trung vào giải thuật. Trình biên dịch (compiler) sẽ đảm nhiệm việc dịch chương trình viết bằng ngôn ngữ cấp cao sang ngôn ngữ assembly. Mã assembly được tạo ra bởi trình biên dịch sau đó sẽ được tập hợp lại để cho ra một chương trình có thể thực thi. Một ngôn ngữ bất kỳ từ ngôn ngữ giao tiếp của con người tới ngôn ngữ máy tính đều xây dựng trên một bộ ký tự. Các ký tự ghép lại thành các từ có nghĩa gọi là từ vựng. Các từ lại được viết thành các câu tuân theo cú pháp và ngữ pháp của ngôn ngữ để diễn tả hành động sự việc cần thực hiện. Bộ ký tự của Assembly gồm có:
+ - [1.5. Chương trình Netwide Assemble(NASM)](#1.5)
 
-> -Các chữ cái latin: 26 chữ hoa A-Z, 26 chữ thường a-z. - Các chữ số thập phân: ‘0’ - ‘9’ - Các ký hiệu phép toán, các dấu chấm câu và các ký hiệu đặc biệt: + - * / @ ? $,.: < > { } & %! \ # v.v... - Các ký tự ngăn cách: space và tab.
+ - [1.6. Chương trình Macro Assembly(MASM)](#1.6)
 
-<a name="muc1"></a>
+[2. Các phép toán, biểu thức, câu lệnh gán và các sử lý dữ liệu đơn giản.](#2)
+ 
+ - [2.1. Các phép toán](#2.1)
 
-### 1. cấu trúc chương trình (NASM và MASM)
+ - [2.2. Biểu thức](#2.2)
 
-<a name="muc1.1"></a>
+ - [2.3. Câu lệnh gán](#2.3)
 
-> ####1.1- cấu trúc trong NASM:
-> một chương trình assembly có thể được chia thành 3 section ( phân đoạn): data section, Bss section và text section 
+ - [2.4. Sử lý số liệu đơn giản](#2.4)	
 
-> ###### -phân đoạn data:
-> Được sử dụng để khai báo các dữ liệu khởi tạo và các hằng của chương trình. Dữ liệu ở đây sẽ không được thay đổi khi chạy chương trình.
-> Chúng ta có thể khai báo giá trị hằng, tên file, kích thước buffer,… tại đây.
-> cú pháp :
+[3. Các lệnh cơ bản](#3)
+
+[4. Cài đặt IDE Emu8086 và code và chạy lại các ví dụ](#4)
+
+
+####1. Cấu trúc chương trình Assembly <a name="1"></a>
+#####1.1 Tổng quan về asembly <a name="1.1"></a>
+
+ - Ngôn ngữ lập trình Assembly(hợp ngữ) sữ dụng các từ gợi nhớ, từ viết tắt,... thay cho các chỉ thị(lệnh) phức tạp trong vi xử lý, giúp con người lập trình tạo ra các chương chỉnh có khả năng thực thi nhanh và sử dụng tài nguyên tối ưu.
+
+ -  Hợp ngữ hỗ trợ thiết kế cả hai dạng cấu trúc chương trình EXE và COM, mỗi dạng phù hợp với một nhóm trình biên dịch nào đó. Muốn biên dịch một chương trình hợp ngữ sang dạng EXE thì ngoài việc nó phải được viết theo cấu trúc dạng EXE ta còn cần phải sử dụng một trình biên dịch phù hợp. Điều này cũng tương tự với việc muốn có một chương trình thực thi dạng COM.
+
+ -  Văn bản của một chương trình hợp ngữ dạng EXE cũng cho thấy rõ nó gồm 3 đoạn: Code, Data và Stack. Tương tự, văn bản của chương trình hợp ngữ dạng COM cho thấy nó chỉ có 1 đoạn: Code, cả Data và Stack (không tường minh) đều nằm ở đây.
+
+#####1.2. Cú pháp câu lệnh Assembly <a name="1.2"></a>
+
+
+`[tên]   toán tử    [toán hạng]   [;lời bình]`
+
+
+Trong đó:
+
+ - [tên]: Có thể xem là tên đại diện của lệnh. Nó thường được sử dụng trong các đoạn lệnh có lệnh nhảy (jump), lệnh lặp (loop), lệnh gọi chương trình con (call),…
+
+ - **toán tử :** Tên của lệnh ở dạng gợi nhớ (như: mov, add, sub, int…). Đây là một trong các lệnh thuộc tập lệnh gợi nhớ của một processor nào đó. 
+
+ - [toán hạng]: Đây là các đối tượng chịu sự tác động của lệnh: Biến, hằng, thanh ghi, địa chỉ ô nhớ,… Một lệnh ngôn ngữ Assembly có thể không có, có 1 hoặc 2 operand (toán hạng)
+
+ - [;lời bình]: Phần chú thích lệnh. Được đặt sau dấu chấm phẩy (;).
+
+####1.3 Cấu trúc chương trình hợp ngữ dùng cho tập tin thực thi ***.EXE**<a name="1.3"></a>
+ 
+ - Phần **"Data segment"**: khai báo các hằng số, biến mảng...
+ Các toán thử thường dùng:
+  <ul>
+  <li>org -> Xác định vị trí mã lệnh</li>
+  <li>EQU -> gán giá trị cho 1 biến</li>
+  <li>DB -> khai báo biến kích thích 1 byte</li>
+  <li>DD -> Khai báo biến kích thước 4 byte</li>
+  <li>DQ -> Khai báo biến kích thước 8 byte</li>
+  <li>DT -> Khai báo biến kích thước 10 byte</li>
+  <li>dup(?) -> tạo một mảng và gán cùng một giá trị</li>
+ </ul>
+
+Ví dụ:
+
 ```
-.DATA
-```
-> section này thường được gọi là **data segment**
-> ###### - phân đoạn Bss:
-> Được sử dụng để khai báo các biến sử dụng trong chương trình.
-> có cú pháp là:
-```
-.Bss 
-```
-> ###### -phân đoan text
->Được sử dụng để giữ mã lệnh (code) của chương trình. Phân đoạn này phải bắt đầu với khai báo **global _start,** để báo với hệ điều hành (Kernel) vị trí bắt đầu của chương trình là tại đây.
-> cú pháp :
-```
-.text
-global_start
-_start:
-```
-> section này được gọi là **code segment**.
-<a name="muc1.2"></a>
-> #### cấu trúc trong MASM
-> các chương trình bằng ngôn ngữ máy gồm có mã, dữ liệu và ngăn xếp. mỗi phần chiếm lấy một đoạn bộ nhớ. chương trình bằng hợp ngữ củng có tổ chức như vậy, trong trường hợp này, mã dữ liệu và ngăn xếp được cấu trúc như các đoạn chương trình. mỗi đoạn chương trình sẽ được dịch thành một đoạn bộ nhớ bởi trình biên dịch.
->chúng ta sửu dụng các định nghĩa đơn giản hóa mà đã được dùng cho MASM 5.0
-> **các chế độ bộ nhớ **.
-> kích thước của đoạn mã và dữ liệu trong một chương trình có thể được xác định bằng cách chỉ ra chế độ nhớ nhờ sử dụng dẫn hướng biên dịch .MODE
-> cú pháp:
-```
-.MODEL   kiểu_bộ_nhớ
-```
-> các chế độ thường sữ dụng nhất là **SMALL**, **MEDIUM**, **COMPACT** VÀ **LARGE**. trừ khi có quá nhiều mã lệnh hay số liệu, kiểu thích hợp nhất là SMALL. dẫn hướng biên dịch **.MODEL** phải được đưa vào trước bất kỳ một định nghĩa nào.
-> ** đọa dữ liệu (Data segment)**.
-> đoạn dữ liệu của một chương trình chứa tất cả các định nghĩa biến, cũng như vậy định nghĩa hằng củng thường được tạo ra ở đây nhưng chũng cũng có thể được đưa vào một chổ khác quan trong chương trình bởi vì không có ô chứa nào liên quan đến nó. để khai báo một đoạn dữ liệu chúng ta sử dụng dẫn hướng biên dịch **.DATA**. theo sau là các khai báo biến hay hằng. ví dụ:
-```
-.DATA
-WORD1  DW  2
-WORD2  DW  5
-MSG  DW 'THIS IS A MESSAGE'
-MASK  EQU  10010010B
-```
-> **đoạn ngăn xếp (Stack segment)**
-> mục đích của khai báo đoạn ngăn xếp là tạo ra một khối bộ nhớ ( vùng ngăn xếp) để chứa ngăn xếp. vùng ngưn xếp có thể đủ lớn để chứa ngăn xếp với kích thước lớn nhất của nó. cú pháp khai báo như sau:
-```
-.STACK  100H
-```
-> sẽ tạo 100h byte cho vùng ngăn xếp 
->** đoạn mã (code segment)**
-> đoạn mã chứa các lệnh của chương trình cú pháp khai báo là:
-```
-.CODE  TÊN	
-```
-> trong đó tên là một tên tùy ý ( không nhất thiết phải có )
-. bên trong doạn mã lênh đuwọc tổ chức như các thủ tục. một định nghĩa thủ tục đơn giản nhất là :
-```
-tên_thủ_tục    PROC
-;thân của thủ tục
-tên_thủ_tục    ENDP
-```
->ở đây tên thủ tục là tên của thủ tục ; PROC và ENDP là các toán tử đánh dấu bắt đầu và kết thúc thủ tục.
-> ví dụ 1 đoạn mã:
-```
-.CODE
-MAIN  PROC
-;các lệnh của chương trình chính 
-MAIN   ENDP
-; các thủ tục khác 
+xuongdong  EQU  0Dh    ; xuống dòng
+Tmp        DB   ?      ; Tạo một biến tên Tmp
+Str        DB   "2"    ; Tạo một mảng chứa chuỗi 
+bufferdata DB   100 dup(?) ; Tạo mảng có 100 ô nhớ
 ```
 
-<a name="muc2"></a>
-----
-> ### 2. các phép toán , biểu thức  
-> các phép toán trong assembly gồm có :
-> add, mov, sub, dec, inc, equ.... 
-> các phép toán được thực hiện bằng các lệnh chỉ thị chứ không như các ngôn ngữ bậc cao 
-> biểu thức toán học là tập hợp các phép toán nên nó củng là tập hợp các lệnh xử lý của máy 
-> ví dụ cho việc dùng biểu thức A= B-2*A
+ - Phần **"Stack segment"**: khai báo bộ ngăn xếp. Do x86 sử dụng các thanh ghi 16bit nên kích thước bộ đệm luôn được gán bằng toán tử **DW**
+
+VD:
 ```
-MOV  AX,B  ;truyền giá trị của B vào AX
-SUB  AX,A  ; AX mang giá trị của B_A
-SUB  AX,A
-MOV  A,AX  : trả lại kết quả cho A
-```
-> ví dụ về việc dùng câu lênh gán :
-``` 
-LF   EQU   0ah
-```
-> sẽ gán tên LF cho 0ah là mã ascii của ký tự xuống dòng . tên LF bây giờ có thể thay thế cho oah tại bất cứ đâu trong chươg trình.
-> với câu lệnh gán A=B trong C thì trong asembly cần chỉ thị như sau
-```
-mov  ax,a ; chuyển a vào ax
-mov  b,ax ; chuyển giá trị của ax vào b
+	Stack 
+		DW	256	dup (?) ; tạo ngăn xếp có 256 ô nhớ.
+	End
 ```
 
-<a name="muc3"></a>
-----
-> ### -3 các lệnh cơ bản
-> một chương trình gồm một tập các dòng lệnh , dòng lệnh là một chỉ thị để cho máy hoạt động. mỗi lệnh thường có 4 trường.
-> **Tên**  ,  **Toán tử** ,  **Toán hạng** ,  *lời bình**
-> ví dụ:
-``` 
-start:  mov   cx,5 ;khởi tạo bộ đếm 
-```
-> trong trường này trường tên là   nhãn start , toán tử là mov , toán hạng là cx và 5 , lời bình là " khởi tạo bộ đếm"
->** dữ liệu chương trình **
-> các số nhị phân được viết như là một chuỗi các bit kết thúc bằng chữ 'B' ví dụ: 1011b.
-> các số thập phân là chuỗi các số và kết thúc bằng 'd' hay không viết gì cả 
-> các số hệ 16 ( hex ) kết thúc bằng chữ 'h' và bắt buộc phải bắt đầu bằng 1 số thập phân.
->** các toán tử giả định nghĩa số liệu **
-> DW   =    kiểu dữ liệu byte
-> DW   =    kiểu dữ liệu word
-> DD   =    định nghĩa từ kép 
-> DQ   =    định nghĩa 4 word ( 4 từ liên tiếp )
-> DT   =    định nghĩa 10 byte liên tiếp 
+ - Phần "Code Segment": phần chính của chương trình chứa các lệnh hợp ngữ gồm chương chình chính và chương trình con - Procedure(Nếu có)
+ VD:
+ ```
+	Code 
+		...						;các lệnh 
+		call chuongtrinhcon		;gọi chương trình con
+		...						;các lệnh 
+	End
+ ```
 
-> ####Lệnh EQU (coi như , bằng)
-> Dùng để gán giá trị của hằng cho 1 cái tên nào đấy 
-> Cú pháp :  
-```
-Tên 	EQU 	hằng _số 
-```
-> ví dụ 
-```
-AX 	EQU 	10
-```
-> Ý nghĩa : sẽ gán cho AX giá trị bằng 10.
+ ```
+ 	chuongtrinhcon		Proc
+ 		...							;các lệnh 
+ 		ret							;quay về chương trình chính
+ 	chuongtrinhcon		EndP
+ ```
 
-> #### -lệnh XCHG 
-> dùng để hoán vị hai biến :
-> câu lệnh :
-```
-XCHG đích,nguồn
-```
->VD:
-```
- XHCG	 AX,BY
-```
->  sẽ lấy giá trị của AX để chuyển cho BY và giá trị của BY cho AX
+#####1.4. Cấu trúc chương trình hợp ngữ dành cho tập tin lệnh ***.com** <a name="1.4"></a>
 
-> ####-Lệnh MOV
-> Câu lệnh :
-```
- mov đích,nguồn
-```  
-> Dùng để tạo ra một bản sao giá trị của biến câu lệnh của nó là:
-```
- mov	 AX,BY 
-```
-> ý nghĩa gán giá trị của BY cho AX và giá trị của BY được giữu nguyên , từ nay khi viết AX  hoặc BY sẽ có chung nghĩa
+ - Tập tin gồm 2 phần (data và code), không có bộ nhớ ngăn xếp.
+ VD:
 
-> ####-lệnh ADD
-> Dùng để cộng nội dung của hai thanh ghi, một thanh ghi và một ô nhớ hoặc cộng 1 số vào một thanh ghi hay một ô nhớ. Cú pháp 
 ```
-ADD 	đích, nguồn
+	Code Segment
+		org 	h 	;địa chỉ đầu của chương trình
+	Start:		JMP 	CONTINUE	
+		;Các khai báo biến, mảng, hằng...  tại đây
+	CONTINUE:
+		MAIN 	PROC 	
+	; Các lệnh của chương trình chính, trở về DOS bằng INT 20h
+		MAIN 	ENDP
+	;Các chương trình con(nếu có) khai báo ở đây.
+	END strart
 ```
-> VD add 		AX,BY 
-> Thao tác này sẽ cộng giá trị của thanh ghi BY vào giá trị của thanh ghi AX và chứ nội dung tổng đó trong thanh ghi AX còn giá trị của BY được giữ nguyên.
-```
-ADD 	AX,5
-```
-> Sẽ cộng 5 vào giá trị của AX
 
-> ####-lệnh SUB
-> Ngược lại với add nó dùng để trừ nội dung của hai thành ghi , một thanh ghi và một ô nhớ hoặc một số vào một thanh ghi hay một ô nhớ. Cú pháp 
-```
-SUB 	đích, nguồn 
-```
-> VD
-```
-SUB		AX ,BY
-```
-> Sẽ lấy giá trị AX-BY và gán giá trị đó cho AX , BY được giữ nguyên
-> **Chú ý: việc kết hợp MOD, XCHG, ADD, SUB  trực tiếp giữa các ô nhớ là không hợp lệ**
+#####1.5. Biên dịch và liên kết chương trình trong NASM <a name="1.5"></a>
 
-> ####-Lệnh INC và DEC 
->Lệnh INC (increment) dùng để cộng 1 vào giá trị của 1 thanh ghi hay một ô nhớ
-> Lệnh DEC(decrement) dùng để trừ đi 1 giá trị của một thanh ghi hay một ô nhớ
-> Cú pháp :
-```
-INC 	đích
-DEC 	đích
-```
-> VD INC 	word1
-> (Cộng 1 vào nội dung của word1)
-> DEC 	word1
-> (trừ giá trị của word1 đi 1)
+ - Các Netwide Assembler, NASM, là 80x86 và x86-64 lắp ráp thiết kế cho tính di động và mô đun.
+Nó hỗ trợ một loạt các định dạng tập tin đối tượng, bao gồm cả Linux và BSD * a.out, ELF, COFF, Mach-O,
+Microsoft 16-bit OBJ, Win32 và Win64. Nó cũng sẽ ra thuần tập tin nhị phân. Cú pháp của nó được thiết kế để
+đơn giản và dễ hiểu, tương tự như Intel, nhưng ít phức tạp hơn. Nó hỗ trợ tất cả x86 hiện đang được biết đến
+mở rộng kiến trúc, và đã hỗ trợ mạnh mẽ cho các macro.
 
-<a name="muc4"></a>
---------
-> ### Lệnh và ngắt ra vào dòng nhập chuẩn
-> có 2 loại chương trình phục vụ vào/ra . các chương trình của DOS và BIOS. các chương trình BIOS được chứa trong ROM và tác động trực tiếp tới các cổng vào/ra. 
->
-> **lệnh INT**
-> lệnh INT được dùng để gọi các chương trình ngắt của DOS và BIOS. nó có dạng sau:
-```
-INT  số_hiệu_ngắt
-```
-> ở đây số hiệu ngắt là một con số xác định một chương trình ví dụ INT 16, sẽ gọi các phụ vụ bàn phím của BIOS.
+#####1.6. Chương trình Macro Assembly(MASM) <a name="1.6"></a>
 
-> **ngăt 21H**
-> ngắt 24 H được dùng để gọi rát nhiều hàm của DOS . mỗi hàm được gọi bằng cách đặt số hàm vào trong thanh ghi AH và gọi INT 21H. chúng ta xét các hàm.
-> 1 : vào 1 phím 
-> 2 : đưa ra màn hình 
-> 9 : đưa ra một chuỗi ký tự
-> các hàm của ngắt 21H nhận dữ liệu trong các thanh ghi nào đó và trả về kết quả trong các thanh ghi khác. các thanh ghi này sẽ được liệt kê khi mô tả mỗi hàm .
-> **hàm 1 **
-> **vào một phím**.
+ - Chương trình A86 Macro Assembly (tập tin chính là: A86.com) thường được sử dụng để dịch chương trình hợp ngữ sang chương trình thực thi dạng COM.
 
-> vào : AH=1
-> ra: AL= mã ascii nếu một phím bất kỳ được ấn .
->       = 0 nếu một phím điều khiển hay chức năng được nhấn 
+ - Chương trình Macro Assembly (tập tin chính là: `MASM.exe`) thường được sử dụng để dịch chương trình hợp ngữ sang chương trình thực thi dạng `EXE`. Tuy nhiên, `MASM` chỉ có thể dịch tập tin chương trình hợp ngữ sang dạng tập tin đối tượng mã máy dạng Obj. Để chuyển tập tin Obj sang tập tin chương trình thực thi EXE ta phải sử dụng chương trình liên kết của MSDOS, đó là `Link.exe`. Để chuyển tập tin thực thi dạng EXE sang tập tin thực thi dạng COM ta phải sử dụng thêm một chương trình khác của `MS_DOS`, đó là `EXE2Bin.com`.   
 
-> để gọi phục vụ ta thực hiện các lệnh sau:
-```
-mov   AH,1   ;hàm vào một phím
-INT   21H    ; mã ascii trong AL
-```
-bộ vi xử lý sẽ đợi người sử dụng ấn một phím nếu cần thiết. nếu một phím kí tự được ấn ,AL sẽ nhận mã ASCii và ký tự được hiện lên màn hình . trong các lệnh tiếp theo INT 21H có thể kiểm tra AL và thực hiện tác vụ thích hợp.
->
-> **hàm 2**
-> **hiển thị 1 ký tự hay thi hành 1 chức năng điều khiển**.
+ - Có thể sử dụng các tập tin `TASM.Exe` và `TLINK.Exe` để thay thế cho `MASM.exe` và `Link.exe`. Các tập tin này, và cả tập tin `EXE2Bin.com`, có thể tìm thấy trong bộ chương trình Turbo Pascal.
 
-> vào:  AH=2
->       DL= mã ASCII của ký tự hiển thị hay ký tự điều khiển.
-> ra:  	AL=mã ASCII của ký tự hiển thị hay ký tự điều khiển .
-> dùng hàm này hiển thị một ký tự. ta đặt mã ASC của nó trong DL . ví dụ các lệnh sau đây sẽ làm xuất hiện dấu chấm hỏi '?' trên màn hình :
-```
-MOV   AH,2
-MOV   DK,'?'
-INT   21H
-```
-> các ký tự điều khiển quan trọng được chỉ ra sau đây
+ - `MASM` có thể dịch tập tin chương trình hợp ngữ sang các tập tin: tập tin đối tượng (`.Obj`), tập tin liệt kê thông tin (`.Lst`), tập tin tham khảo chéo (`.Crf`).
 
-|mã ASCII | ký hiệu | chức năng |
-|---------|---------|-----------|
-| 7        |    BELL |     phát tiếng bíp (beep)| 
-| 8	      |BS       | lùi lại 1 vị trí|
-| 9 | HT | tab |
-| A | LF | xuống dòng |
-| D | CR | xuống dòng và về đầu dòng|
+    - **Tập tin đối tượng** (Object File): Chứa bảng dịch mã máy của các lệnh trong chương trình nguồn hợp ngữ, và các thông tin cần thiết để có thể tạo nên một tập tin thực thi. Đây là tập tin chính để tạo nên tập tin thực thi.
+    - **Tập tin liệt kê thông tin** (`List File`): Là một tập tin văn bản cho biết địa chỉ offset của từng lệnh trong đoạn Code; mã lệnh của các lệnh trong chương trình; danh sách các tên/nhãn dùng trong chương trình; các thông báo lỗi và một số thông tin khác. Đây là tập tin cơ sở hỗ trợ việc gỡ rối chương trình.
+     - **Tập tin tham khảo chéo** (Cross Reference File): Liệt kê các tên sử dụng trong chương trình và dòng mà chúng xuất hiện.
 
-<a name="muc5"></a>
-> ### cài đặt IDE emu8086 và chạy các ví dụ
-> link để tải IDE emu8086[ IDE](http://www.emu8086.com/)
-> sau khi tải xong giải nén và chạy 
-![hình ảnh 1](http://i.imgur.com/YoVn4FE.png)
-![hình ảnh 2](http://i.imgur.com/AGtSf5o.png)
-![hình ảnh 3](http://i.imgur.com/7zj1ve1.png)
-![hình ảnh 4](http://i.imgur.com/ZuMtuea.png)
-> ví dụ 1 được code như sau
+####2. Các phép toán, biểu thức, câu lệnh gán và các sử lý dữ liệu đơn giản. <a name="2"></a>
+#####2.1. Các phép toán <a name="2.1"></a>
+
+ - Đối với một chỉ thị, trường toán hạng xác định dữ liệu sẽ được tác động lên. Một chỉ thị có thể không có, có 1 hoặc 2 toán hạng. VD:
+
+ - ADD : Cộng 2 thanh ghi
+
+ - SUB : Trừ 2 thanh ghi
+
+ - INC : cộng thêm 1 nội dung của một thanh ghi hoặc 1 vị trí ô nhớ.
+
+ - DEC : giảm bớt 1 thanh ghi hặc 1 vị trí nhớ.
+
+ - NEG : Đổi dấu(lấy bù 2 của một thanh ghi hoặc một vị trí nhớ)
+
+#####2.2. Biểu thức <a name="2.2"></a>
+ - Biểu thức logic: Bao gồm các phép **NOT-AND-OR-XOR-TEST**
+
+| A | B | A And B | A Or B | A Xor B | Not A |
+|---|---|---------|--------|---------|-------|
+| 0 | 0 |    0    |    0   |     0   |    1  |
+| 0 | 1 |    0    |    1   |     1   |    1  |
+| 1 | 0 |    0    |    1   |     1   |    0  |
+| 1 | 1 |    1    |    1   |     0   |    0  |
+
+ -  Cú pháp:
+
+     - Not     [Toán hạng đích]
+
+     - And     [Toán hạng đích], [Toán hạng nguồn]
+
+     - Or      [Toán hạng đích], [Toán hạng nguồn]
+
+     - Xor     [Toán hạng đích], [Toán hạng nguồn]
+
+     - Test    [Toán hạng đích], [Toán hạng nguồn]
+
+ - Lệnh `Not` (Logical Not): Thực hiện việc đảo ngược từng bít trong nội dung của [Toán hạng đích]. Lệnh này không làm ảnh hưởng đến các cờ.
+
+Lệnh `Not` thường được sử dụng để tạo dạng bù 1 của [Toán hạng đích].        
+
+- Lệnh `And` (Logical And): Thực hiện phép tính logic And trên từng cặp bít (tương ứng về vị trí) của [Toán hạng nguồn] với [Toán hạng đích], kết quả lưu vào [Toán hạng đích].
+
+Lệnh `And` thường được sử dụng để xóa (= 0) một hoặc nhiều bít xác định nào đó trong một thanh ghi.
+
+- Lệnh `Or`(Logical Inclusive Or):Thực hiện phép tính logic Or trên từng cặp bít (tương ứng về vị trí) của [Toán hạng nguồn] với [Toán hạng đích], kết quả lưu vào [Toán hạng đích].
+
+Lệnh`Or`thường dùng để thiết lập (= 1) một hoặc nhiều bít xác định nào đó trong một thanh ghi.
+
+- Lệnh `Xor` (eXclusive OR):Thực hiện phép tính logic Xor trên từng cặp bít (tương ứng về vị trí) của [Toán hạng nguồn] với [Toán hạng đích], kết quả lưu vào [Toán hạng đích].
+
+Lệnh `Xor` thường dùng để so sánh (bằng nhau hay khác nhau) giá trị của hai toán hạng, nó cũng giúp phát hiện ra các bít khác nhau giữa hai toán hạng này.  
+
+- Lệnh `Test`: Tương tự như lệnh And nhưng không ghi kết quả vào lại [Toán hạng đích], nó chỉ ảnh hưởng đến các cờ CF, OF, ZF,...
+
+#####2.3. Câu lệnh gán<a name="2.3"></a>
+
+ `Mov      [Toán hạng đích], [Toán hạng nguồn]`
+ trong đó:
+
+- [Toán hạng đích]: Có thể là thanh ghi (8 bít hay 16 bít), ô nhớ (chính xác hơn là địa chỉ của một ô nhớ) hay một biến nào đó. [Toán hạng đích] không thể là hằng số.   
+
+- [Toán hạng nguồn]: Có thể là hằng số, biến, thanh ghi, ô nhớ (chính xác hơn là địa chỉ của một ô nhớ) nào đó.
+
+**Tác dụng**: Lấy nội dung (giá trị) của [Toán hạng nguồn] đặt vào [Toán hạng đích]. Nội dung của [Toán hạng nguồn] không bị thay đổi.
+
+
+
+#####2.4. Sử lý số liệu đơn giản<a name="2.4"></a>
+ 
+ - `IN     AL, <Địa chỉ cổng> `      
+
+ Lênh **In**(Input): Đọc một lượng dữ liệu 8 bít từ cổng được chỉ ra ở <Địa chỉ cổng> đưa vào lưu trữ trong thanh ghi AL.  
+
+ Nếu địa chỉ cổng nằm trong giới hạn từ 0 đến FF (hệ thập lục phân) thì có thể viết trực tiếp trong câu lệnh, nếu địa chỉ cổng lớn hơn FF thì ta phải dùng thanh ghi Dx để chỉ định địa chỉ cổng.
+
+ - `OUT   <Địa chỉ cổng>, AL`
+
+  Lệnh **Out** (Output): Gởi một lượng dữ liệu 8 bít từ thanh ghi AL ra cổng được chỉ ra ở <Địa chỉ cổng>. Tương tự lệnh In, địa chỉ cổng có thể được viết trực tiếp trong câu lệnh hoặc thông qua thanh ghi Dx.
+
+####3. Các lệnh cơ bản<a name="3"></a>
+
+ - `Mov      [Toán hạng đích], [Toán hạng nguồn]`
+
+ **Tác dụng**: Lấy nội dung (giá trị) của [Toán hạng nguồn] đặt vào [Toán hạng đích]. Nội dung của [Toán hạng nguồn] không bị thay đổi.
+
+   - `Inc        [Toán hạng đích]`
+
+Lệnh Inc (Increment): làm tăng giá trị của [Toán hạng đích] lên 1 đơn vị tương tự như toán tử ++ trong c.
+
+   - `Add       [Toán hạng đích],[Toán hạng nguồn]`
+
+Lệnh Add (Addition): lấy giá trị/nội dung của [Toán hạng nguồn] cộng vào giá trị/nội dung của [Toán hạng đích], kết quả này đặt vào lại [Toán hạng đích].   
+
+   - `Dec       [Toán hạng đích]`
+
+Lệnh Dec (Decrement): làm giảm giá trị của [Toán hạng đích] xuống 
+1 đơn vị tương tự như -- trong c.
+
+   - `Sub       [Toán hạng đích],[Toán hạng nguồn]`
+
+Lệnh Sub (Subtract): lấy giá trị/nội dung của [Toán hạng đich] trừ
+
+**Note**: Trong đó: [Toán hạng đích], [Toán hạng nguồn]: tương tự lệnh Mov.
+
+ - `Loop      <Nhãn đích>`
+
+ Trong đó: <Nhãn đích> là một nhãn lệnh và nó phải đứng trước lệnh lặp Loop **không quá 126 byte**.
+
+ Tác dụng: Khi gặp lệnh này chương trình sẽ lặp lại việc thực hiện các lệnh sau <Nhãn lệnh> đủ n lần, với n được đặt trước trong thanh ghi **CX**. Sau mỗi lần lặp **CX** tự động giảm 1 đơn vị (**Cx** = **Cx** - 1) và lệnh lặp sẽ dừng khi Cx = 0.
+
+ Lệnh Loop thường được sử dụng để cài đặt các đoạn chương trình lặp với số lần lặp xác định, được cho trước trong thanh ghi **Cx** (tương tự các vòng lặp For trong các ngôn ngữ lập trình bậc cao).    
+ - `LEA     [Toán hạng đích],[Toán hạng nguồn]`
+
+ Trong đó: [Toán hạng đích]: Là các thanh ghi 16 bít. [Toán hạng nguồn]: Là địa chỉ của một vùng nhớ hay tên của một biến.
+
+Tác dụng: Lệnh **LEA** (load effective address) có tác dụng chuyển địa chỉ offset của [Toán hạng nguồn] vào [Toán hạng đích]. Lệnh này thường được sử dụng để lấy địa chỉ offset của một biến đã được khai báo trong chương trình. Thanh ghi được sử dụng trong trường hợp này là thanh ghi cơ sở (**BX**) và thanh ghi chỉ mục (**SI** và **DI**).   
+
+ - `Mul     [Toán hạng nguồn]`
+
+ Lệnh **Mul** (Multiply): Thực hiện phép nhân trên số không dấu. Nếu [Toán hạng nguồn] là toán hạng 8 bít thì lệnh sẽ nhân nội dung của [Toán hạng nguồn] với giá trị thanh ghi **AL**, kết quả 16 bít chứa ở thanh ghi **Ax**.   
+
+Nếu [Toán hạng nguồn] là toán hạng 16 bít thì lệnh sẽ nhận nội dung của [Toán hạng nguồn] với giá trị thanh ghi **Ax**, kết quả 32 bít chứa ở cặp thanh ghi **Dx**,**Ax**, phần thấp ở **Ax**, phần cao ở **Dx**. Nếu phần cao của kết quả (**AH** hoặc **DX**) bằng 0 thì các cờ **CF** = 0 và **OF** = 0.
+
+ - `IMul   [Toán hạng nguồn]`
+
+ Lệnh **IMul** (Interger Multiply): Tương tự lệnh **Mul** nhưng thực hiện phép nhân trên hai số có dấu. Kết quả cũng là một số có dấu. 
+
+ - `Div      [Toán hạng nguồn]`
+
+ Lệnh **Div** (Divide): Thực hiện phép chia trên số không dấu. Nếu [Toán hạng nguồn] là toán hạng 8 bít thì lệnh sẽ lấy giá trị của thanh ghi **Ax** (số bị chia) chia cho [Toán hạng nguồn]  (số chia), kết quả thương số chứa trong thanh ghi **Al**, số dư chứa trong thanh ghi **AH**.      
+
+Nếu [Toán hạng nguồn] là toán hạng 16 bít thì lệnh sẽ lấy giá trị của cặp thanh ghi **Dx**:**Ax** (số bị chia) chia cho [Toán hạng nguồn]  (số chia), kết quả thương số chứa trong thanh ghi **Ax**, số dư chứa trong thanh ghi **Dx**.
+
+Nếu phép chia cho 0 xảy ra hay thương số vượt quá giới hạn của thanh ghi **AL** (chia 8 bít) hay **Ax** (chia 16 bít) thì CPU sẽ phát sinh lỗi “Divice overflow”.
+
+ - `IDiv    [Toán hạng nguồn]`
+
+  Lệnh **Idiv** (Integer Divide): Tương tự lệnh  **Div** nhưng thực hiện phép chia trên hai số có dấu. Kết quả cùng là các số có dấu.
+
+  - Trong đó: [Toán hạng nguồn]có thể là thanh ghi hay ô nhớ. Với các lệnh nhân: [Toán hạng đích] ngầm định là thanh ghi **Al** hoặc **Ax**. Với các lệnh chia: [Toán hạng đích] là một trong các thanh ghi đa năng **Ax**, **Bx**,...
+
+  - `Not     [Toán hạng đích]`
+
+   Lệnh **Not** (Logical Not): Thực hiện việc đảo ngược từng bít trong nội dung của [Toán hạng đích]. Lệnh này không làm ảnh hưởng đến các cờ.
+   Lệnh Not thường được sử dụng để tạo dạng bù 1 của [Toán hạng đích].    
+
+  - `Or       [Toán hạng đích], [Toán hạng nguồn]`
+
+Lệnh **Or** (Logical Inclusive Or):Thực hiện phép tính logic Or trên từng cặp bít (tương ứng về vị trí) của [Toán hạng nguồn] với [Toán hạng đích], kết quả lưu vào [Toán hạng đích].
+
+Lệnh **Or** thường dùng để thiết lập (= 1) một hoặc nhiều bít xác định nào đó trong một thanh ghi.
+
+ - `Xor     [Toán hạng đích], [Toán hạng nguồn]`
+
+ Lệnh **Xor** (eXclusive OR):Thực hiện phép tính logic Xor trên từng cặp bít (tương ứng về vị trí) của [Toán hạng nguồn] với [Toán hạng đích], kết quả lưu vào [Toán hạng đích].
+
+Lệnh **Xor** thường dùng để so sánh (bằng nhau hay khác nhau) giá trị của hai toán hạng, nó cũng giúp phát hiện ra các bít khác nhau giữa hai toán hạng này.
+
+ - `Test    [Toán hạng đích], [Toán hạng nguồn]`
+
+Lệnh **Test**: Tương tự như lệnh And nhưng không ghi kết quả vào lại [Toán hạng đích], nó chỉ ảnh hưởng đến các **cờ** CF, OF, ZF,...
+
+####4. Cài đặt IDE Emu8086 <a name="4"></a>
+
+ - Emu8086 là chương trình mô phỏng bộ VXL 8086/86 rất hay với đầy đủ chức năng của một text editor, assembler, disassembler, và software emulator, bạn có thể theo dõi trạng thái của thanh ghi, cờ và bộ nhớ khi chương trình đang chạy.
+
+ - Vào <a href="http://www.emu8086.com/">đây</a> để tải.
+
+ - Sau khi giải nén. Ta bắt đầu cài đặt.
+
+![Bước 1](http://i.imgur.com/5S3Kcty.png)
+
+`Next`
+
+![Bước 2](http://i.imgur.com/wWouGHe.png)
+
+`Next`
+
+![Bước 3](http://i.imgur.com/ET6cICC.png)
+
+`Next`
+
+![Bước 4](http://i.imgur.com/zC3m2UB.png)
+
+`Next`
+
+![Bước 5](http://i.imgur.com/HvIsPlE.png)
+
+`Next`
+
+![Bước 6](http://i.imgur.com/zL7fCyY.png)
+
+`Finshed`
+
+ - Sau khi cài đặt xong ta được icon và giao diện ban đầu như sau: ![icon](http://i.imgur.com/3XIjTj7.png)
+
+![Giao diện ban đầu](http://i.imgur.com/gBExLxa.png)
+
+
+###Ví dụ : Giả sử tại địa chỉ 0100:0120 trong bộ nhớ có chứa một mảng dữ liệu, gồm 100 ô nhớ, mỗi ô là 1 word. Hãy tính tổng nội dung của các ô nhớ này, kết quả chứa trong thanh ghi Dx.
+code
+
 ```
-title pgm_1:sample program
+ title pgm_1:sample program
 .model small
 .stack 100h
 .code
@@ -321,5 +384,6 @@ main  proc
 main    endp
     end main
 ```
-> và kết quả là 
-![hình ảnh 1](http://i.imgur.com/jayGYqY.png)
+
+**Kết Quả**
+![](http://i.imgur.com/jayGYqY.png)
