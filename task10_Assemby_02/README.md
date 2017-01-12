@@ -41,10 +41,10 @@
 
 ####1.2 thanh ghi cờ <a name="1.2"></a>
 
-|15|14|13|12|11|10|9|8|7|6|5|4|3|2|1|0|
-|--|--|--|--|--|--|-|-|-|-|-|-|-|-|-|-|
-|  |  |  |  |OF|DF|LF|TF|SF|ZF| |AF| |PF| |CF|
-
+ |15|14|13|12|11|10|9|8|7|6|5|4|3|2|1|0|
+ |--|--|--|--|--|--|-|-|-|-|-|-|-|-|-|-|
+ |  |  |  |  |OF|DF|LF|TF|SF|ZF| |AF| |PF| |CF|
+ 
  - bản trên cho ta thấy cấu trúc của các thành ghi cờ. các cờ trạng thái nằm ở các bit 0, 2, 4, 6, 7 và 11 còn các cờ điều khiển nằm ở các bit 8, 9 và 10. Các bit khác không có ý nghĩa. chú ý rằng không cần nhớ cờ nào nằm ở bit nào .Bảng trên trình bày tên các cờ và ký hiệu của chúng. trong chương này chúng ta tập trung vào các cờ trạng thái
 
 ####1.2.1 các cờ trạng thái <a name="1.2.1"></a>
@@ -107,11 +107,13 @@
 
   - ví dụ về hiện tượng tràn không dấu nhưng không tràn có dấu:
   giả sử AX chứ FFFh, BX chứ 0001h và lệnh ADD  AX,BX được thực hiện , kết quả ở dạng nhị phân như sau.
+  ``` 
    1111 1111 1111 1111
   +
    0000 0000 0000 0001
-   __
+   ___________________
  1 0000 0000 0000 0000
+ ```
 
  - nếu chúng ta làm việc với số không dấu, kết quả đúng phải là 100000h =65536, nhưng  kết quả này nằm ngoài phạm vi biểu diễn của một word nên kết quả còn lại trong thành ghi AX là 0h, đây là một kết quả sai, như vậy hiện tượng tràn không dấu đã xãy ra. nhưng kết quả nhận được lại đúng với số có dấu, FFFh=-1 khi hiểu là số có dấu, trong khi 0001h =1 vậy tổng của chúng bằng 0, rõ ràng hiện tượng tràn có dấu đã không xảy ra.
  - bây giờ chúng ta xem xét một ví dụ về hiện tượng tràn có dấu nhưng lại không trang không dấu. giả sử AX và BXX cùng chứa 7FFFh, hãy thực hiện lệnh ADD AX,BX 
