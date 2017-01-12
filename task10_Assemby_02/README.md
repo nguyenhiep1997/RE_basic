@@ -41,10 +41,9 @@
 
 ####1.2 thanh ghi cờ <a name="1.2"></a>
 
-|11|10|9|8|7|6|5|4|3|2|1|0|
-|--|--|-|-|-|-|-|-|-|-|-|-|
-|OF|DF|LF|TF|SF|ZF| |AF| |PF| |CF|
- 
+|15|14|13|12|11|10| 9| 8| 7| 6| 5| 4| 3| 2| 1| 0|
+|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|--|
+|  |  |  |  |OF|DF|LF|TF|SF|ZF|  |AF|  |PF|  |CF|
  - bản trên cho ta thấy cấu trúc của các thành ghi cờ. các cờ trạng thái nằm ở các bit 0, 2, 4, 6, 7 và 11 còn các cờ điều khiển nằm ở các bit 8, 9 và 10. Các bit khác không có ý nghĩa. chú ý rằng không cần nhớ cờ nào nằm ở bit nào .Bảng trên trình bày tên các cờ và ký hiệu của chúng. trong chương này chúng ta tập trung vào các cờ trạng thái
 
 ####1.2.1 các cờ trạng thái <a name="1.2.1"></a>
@@ -52,7 +51,7 @@
 
 ####1.2.2 cờ nhớ (carry flag - CF)<a name="1.2.2"></a>
 
- -cờ nhớ CF được thiết lập 1 khi có nhớ từ bit MSB trong phép cộng hay có vay vào bit MSB trong phép trừ. ngược lại nó bằng 0. cờ CF cũng bị ảnh hưởng bởi các lệnh quay và dịch  
+ - cờ nhớ CF được thiết lập 1 khi có nhớ từ bit MSB trong phép cộng hay có vay vào bit MSB trong phép trừ. ngược lại nó bằng 0. cờ CF cũng bị ảnh hưởng bởi các lệnh quay và dịch  
 
 ####1.2.3 cờ chẵn lẽ (Parity Flag - PF)<a name="1.2.3"></a>
 
@@ -118,12 +117,14 @@
  - nếu chúng ta làm việc với số không dấu, kết quả đúng phải là 100000h =65536, nhưng  kết quả này nằm ngoài phạm vi biểu diễn của một word nên kết quả còn lại trong thành ghi AX là 0h, đây là một kết quả sai, như vậy hiện tượng tràn không dấu đã xãy ra. nhưng kết quả nhận được lại đúng với số có dấu, FFFh=-1 khi hiểu là số có dấu, trong khi 0001h =1 vậy tổng của chúng bằng 0, rõ ràng hiện tượng tràn có dấu đã không xảy ra.
  - bây giờ chúng ta xem xét một ví dụ về hiện tượng tràn có dấu nhưng lại không trang không dấu. giả sử AX và BXX cùng chứa 7FFFh, hãy thực hiện lệnh ADD AX,BX 
  - kết quả ở dạng nhị phân như sau:
+ ```
   0111 1111 1111 1111
  +
   0111 1111 1111 1111
-     tổng
- 1111 1111 1111 1111
+  ___________________ 
+  1111 1111 1111 1111
  =FFFEh
+ ```
  - trong cả 2 dạng có dấu và không dấu 7FFFh đều bằn 32767 bởi vậy trong cả 2 phép cộng không dấu và có dấu đều cho kết quả là 32767+32767 =65534 . giá trị này nằm ngoài phạm vi của số có dấu , kết quả nhận được có dạng FFFEh =-2 như vậy tràn có dấu đã xảy ra. tuy nhiên FFFEh lại bằng 65534 ở dạng không dấu do vậy không có hiện tượng tràn không dấu.
 
 ####2.3 CPU khi có hiện tượng tràn xảy ra <a name="2.3"></a>
@@ -137,13 +138,13 @@
 ** hiện tượng tràn không dấu**
  - khi thực hiện phép cộng, hiện tượng tràn xảy ra khi có nhớ từ bit msb. có nghĩa là kết quả đúng của phéo tình lớn hơn số không dấu lớn nhất có thể biểu diễn, đó là FFFFh cho 1 word và FFh cho 1  byte. khi thực hiện phép trừ hiện tượng tràn không dấu xản ra khi có sự vay vào bit msb, có nghĩa là kết quả đúng nhỏ hơn 0
 
- **hiện tượng tràn có dấu**
+**hiện tượng tràn có dấu**
  - trong phép cộng các số cùng dấu hiện tượng tràn có dấu xảy ra khi tổng nhận được có dấu khác với dấu của 2 số hạng. điều này đã xảy ra trong các vd trước . hiện tượng tràn xảy ra khi kết quả có dấu khác với kết quả chúng ta chờ đợi.
  - thực ra bộ vi xử lý sử dụng phương pháp sau để thiết lập OF:
  nếu việc nhớ vào bit msb và việc nhớ ra từ nó không đồng thời, có nghĩa là có nhớ vào msb nhưng không có nhớ ra từ nó, hay ngược lạ thì có hiện tượng tràn và OF được thiết lập 1
 
 ###3. sự ảnh hưởng của các lệnh đến các cờ <a name="3"></a>
- -nhìn chung mỗi khi bộ xử lý thực hiện một lệnh, các cờ được thay đổi để phản ánh kết quả. tuy nhiên có một số lệnh không ảnh hưởng tới cờ, chỉ ảnh hướng tới một số trong chúng hay có thể làm cho chúng không xác định.trở lại với 7 lệnh cơ bản. chúng có ảnh hưởng đến các cờ như sau:
+ - nhìn chung mỗi khi bộ xử lý thực hiện một lệnh, các cờ được thay đổi để phản ánh kết quả. tuy nhiên có một số lệnh không ảnh hưởng tới cờ, chỉ ảnh hướng tới một số trong chúng hay có thể làm cho chúng không xác định.trở lại với 7 lệnh cơ bản. chúng có ảnh hưởng đến các cờ như sau:
 
 |chỉ thị| các cờ bị ảnh hưởng|
 |-------|--------------------|
