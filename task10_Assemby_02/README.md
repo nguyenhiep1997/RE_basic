@@ -41,9 +41,9 @@
 
 ####1.2 thanh ghi cờ <a name="1.2"></a>
 
- |15|14|13|12|11|10|9|8|7|6|5|4|3|2|1|0|
- |--|--|--|--|--|--|-|-|-|-|-|-|-|-|-|-|
- |  |  |  |  |OF|DF|LF|TF|SF|ZF| |AF| |PF| |CF|
+ |14|13|12|11|10|9|8|7|6|5|4|3|2|1|0|
+ |--|--|--|--|--|-|-|-|-|-|-|-|-|-|-|
+ |  |  |  |OF|DF|LF|TF|SF|ZF| |AF| |PF| |CF|
  
  - bản trên cho ta thấy cấu trúc của các thành ghi cờ. các cờ trạng thái nằm ở các bit 0, 2, 4, 6, 7 và 11 còn các cờ điều khiển nằm ở các bit 8, 9 và 10. Các bit khác không có ý nghĩa. chú ý rằng không cần nhớ cờ nào nằm ở bit nào .Bảng trên trình bày tên các cờ và ký hiệu của chúng. trong chương này chúng ta tập trung vào các cờ trạng thái
 
