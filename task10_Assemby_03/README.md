@@ -85,7 +85,7 @@
 **các lệnh nhảy không dấu**
 
  | ký hiệu | chức năng | điều kiện nhảy |
- |---------|-----------|----------------|
+ |---------|-----------|-----------------|
  |JA/JNBE|nhảy nếu lớn hơn, nhảy nếu không nhỏ hơn hay bằng|CF=0 và ZF=0|
  |JAE/JNB|nhảy nếu lớn hơn hay bằng, nhảy nếu không nhỏ hơn|CF=0|
  |JB/JNAE|nhảy nếu nhỏ hơn, nhảy nếu không lớn hơn hay bằng|CF=1|
@@ -94,7 +94,7 @@
 **các lệnh nhảy đơn.**
 
  | ký hiệu | chức năng | điều kiện nhảy |
- |---------|-----------|----------------|
+ |---------|-----------|-----------------|
  |JE/JZ|nhảy nếu bằng, nhảy nếu bằng 0|ZF=1|
  |JNE/JNZ|nhảy nếu không bằng, nhảy nếu khác 0|ZF=0|
  |JC |nhảy nếu có nhớ |CF=1|
@@ -188,6 +188,9 @@ IF 	điều_kiện
 	END_IF
 ```
  - điều kiện là một biêt thưc có thể đúng hoặc sai nếu nó đúng ,nhánh_đúng sẽ được thực hiện. ngược lại cấu trúc không thực hiện lệnh nào, chương trình tiếp tục với các lệnh theo sau.
+ - sơ đồ được biểu diễn như sau:
+ ![hình ảnh 1](http://i.imgur.com/kXz1P60.jpg)
+ 
 **ví dụ** thay số trong AX bằng giá trị tuyệt đối của nó.
 **trả lời**: một thuật toán với mã lệnh giả:
 ```
@@ -258,6 +261,8 @@ CASE 	phát_biểu
 END_CASE
 ```
  - trong cấu trúc này phát_biểu được kiểm tra. nếu giá trị của nó bằng với giá_trị_i thì dòng_lệnh_i sẽ được thi hành. ta giả thiết tập hợp giá_trị_1.....giá_trị_n tách biệt nhau.
+ - sơ đồ của cấu rúc case là :
+ ![hình ảnh 2](http://i.imgur.com/SSDTyk2.png)
 
  **ví dụ:** nếu AX chứ một số âm, hãy nhập -1 và BX, nếu AX chứa 0, cho BX =0, nếu AX dương đổi BX thành 1
 
