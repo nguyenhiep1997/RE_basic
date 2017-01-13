@@ -84,26 +84,26 @@
 
 **các lệnh nhảy không dấu**
 
- | ký hiệu | chức năng | điều kiện nhảy |
- |---------|-----------|-----------------|
- |JA/JNBE|nhảy nếu lớn hơn, nhảy nếu không nhỏ hơn hay bằng|CF=0 và ZF=0|
- |JAE/JNB|nhảy nếu lớn hơn hay bằng, nhảy nếu không nhỏ hơn|CF=0|
- |JB/JNAE|nhảy nếu nhỏ hơn, nhảy nếu không lớn hơn hay bằng|CF=1|
- |JBE/JNA|nhảy nếu nhỏ hơn hay bằng,nhảy nếu không lớn hơn|CF=1 hay ZF=1|
+| ký hiệu | chức năng | điều kiện nhảy |
+|---------|-----------|----------------|
+|JA/JNBE|nhảy nếu lớn hơn, nhảy nếu không nhỏ hơn hay bằng|CF=0 và ZF=0|
+|JAE/JNB|nhảy nếu lớn hơn hay bằng, nhảy nếu không nhỏ hơn|CF=0|
+|JB/JNAE|nhảy nếu nhỏ hơn, nhảy nếu không lớn hơn hay bằng|CF=1|
+|JBE/JNA|nhảy nếu nhỏ hơn hay bằng,nhảy nếu không lớn hơn|CF=1 hay ZF=1|
 
 **các lệnh nhảy đơn.**
 
- | ký hiệu | chức năng | điều kiện nhảy |
- |---------|-----------|-----------------|
- |JE/JZ|nhảy nếu bằng, nhảy nếu bằng 0|ZF=1|
- |JNE/JNZ|nhảy nếu không bằng, nhảy nếu khác 0|ZF=0|
- |JC|nhảy nếu có nhớ|CF=1|
- |JCN|nhảy nếu không nhớ|CF=0|
- |JO|nhảy nếu tràn| OF=1|
- |JS|nhảy nếu dấu âm|SF =1|
- |JNS|nhảy nếu dấu dương|SF=0|
- |JP/JPE|nhảy nếu cờ chẵn|PF=1|
- |JNP/JPO|nhảy nếu cờ lẻ|PF=0|
+| ký hiệu | chức năng | điều kiện nhảy |
+|---------|-----------|-----------------|
+|JE/JZ|nhảy nếu bằng, nhảy nếu bằng 0|ZF=1|
+|JNE/JNZ|nhảy nếu không bằng, nhảy nếu khác 0|ZF=0|
+|JC|nhảy nếu có nhớ|CF=1|
+|JCN|nhảy nếu không nhớ|CF=0|
+|JO|nhảy nếu tràn| OF=1|
+|JS|nhảy nếu dấu âm|SF =1|
+|JNS|nhảy nếu dấu dương|SF=0|
+|JP/JPE|nhảy nếu cờ chẵn|PF=1|
+|JNP/JPO|nhảy nếu cờ lẻ|PF=0|
 
 ###2.2 lệnh CMP<a name="2.2"></a>
  - các điều kiện nhảy thường được cung cấp bởi lệnh CMP (compare). nó có dạng sau:
