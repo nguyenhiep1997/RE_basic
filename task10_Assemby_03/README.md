@@ -89,7 +89,7 @@
  |JA/JNBE|nhảy nếu lớn hơn, nhảy nếu không nhỏ hơn hay bằng|CF=0 và ZF=0|
  |JAE/JNB|nhảy nếu lớn hơn hay bằng, nhảy nếu không nhỏ hơn|CF=0|
  |JB/JNAE|nhảy nếu nhỏ hơn, nhảy nếu không lớn hơn hay bằng|CF=1|
- |JBE/JNA|nhảy nếu nhớ hơn hay bằng, nhảy nếu không lớn hơn|CF=1 hay ZF=1|
+ |JBE/JNA|nhảy nếu nhỏ hơn hay bằng,nhảy nếu không lớn hơn|CF=1 hay ZF=1|
 
 **các lệnh nhảy đơn.**
 
@@ -97,13 +97,13 @@
  |---------|-----------|-----------------|
  |JE/JZ|nhảy nếu bằng, nhảy nếu bằng 0|ZF=1|
  |JNE/JNZ|nhảy nếu không bằng, nhảy nếu khác 0|ZF=0|
- |JC |nhảy nếu có nhớ |CF=1|
- |JCN |nhảy nếu không nhớ |CF=0|
- |JO| nhảy nếu tràn | OF=1|
- |JS| nhảy nếu dấu âm|SF =1|
- |JNS|nhảy nếu dấu dương| SF=0|
- |JP/JPE| nhảy nếu cờ chẵn | PF=1|
- |JNP/JPO| nhay nếu cờ lẻ| PF=0|
+ |JC|nhảy nếu có nhớ|CF=1|
+ |JCN|nhảy nếu không nhớ|CF=0|
+ |JO|nhảy nếu tràn| OF=1|
+ |JS|nhảy nếu dấu âm|SF =1|
+ |JNS|nhảy nếu dấu dương|SF=0|
+ |JP/JPE|nhảy nếu cờ chẵn|PF=1|
+ |JNP/JPO|nhảy nếu cờ lẻ|PF=0|
 
 ###2.2 lệnh CMP<a name="2.2"></a>
  - các điều kiện nhảy thường được cung cấp bởi lệnh CMP (compare). nó có dạng sau:
@@ -115,7 +115,7 @@
 CMP AX,BX
 JG  BELOW
 ```
- - ở đây AX =7FFFh và BX=)))1. kết quả so sánh AX và BX là 7FFFh - 0001h = 7FFFEh.
+ - ở đây AX =7FFFh và BX=0001. kết quả so sánh AX và BX là 7FFFh - 0001h = 7FFFEh.
  - Bảng 6.1 chỉ ra rằng điều kiện nhảy cho lệnh JG đã đươc jthỏa mãn bởi vì ZF=SF=OF=0 do đó điều khiển được chuển đến nhã BELOW
 ###2.3 dịch các lệnh có điều kiện <a name="2.3"></a>
 
