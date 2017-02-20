@@ -24,6 +24,7 @@
  > - [1.3 các cửa sổ trong ollyDBG](#1.3)
  
  > <ul>
+ 
  > <li>[1.3.1 The DISASSEMBLER Window ](#1.3.1)</li>
  
  > <li>[1.3.2 The REGISTERs Window](#1.3.2)</li>
@@ -31,6 +32,7 @@
  > <li>[1.3.3 The STACK Window](#1.3.3)</li>
  
  > <li>[1.3.4 The DUMP Window](#1.3.4)</li>
+ 
  > </ul>
  
  > - [1.4 một số phím tắt cơ bản ](#1.4)
@@ -48,8 +50,11 @@
  >[3. chi tiết về các thanh ghi và công dụng](#3)
  
  > - [3.1 các thanh ghi chính ](#3.1)
+ 
  >    <ul>
+ 
  >   <li>[3.1.1 thay đổi số liệu các thanh ghi](#3.1.1)</li>
+ 
  >   </ul>
 
  > - [3.2 các thanh ghi cờ](#3.2)
@@ -85,11 +90,17 @@
  > - [4.14 lệnh NEG](#4.14)
 
  > - [4.15 các lệnh logic](#4.15)
+ 
  >  <ul>
+ 
  >  <li>[4.15.1 lệnh AND](#4.15.1)</li>
+ 
  >  <li>[4.15.2 lệnh OR ](#4.15.3)</li>
+ 
  >  <li>[4.15.3 lệnh XOR](#4.15.4)</li>
+ 
  > <li>[4.15.4 lệnh NOT](#4.15.4)</li>
+ 
  >  </ul>
 
  > [5. các lệnh so sánh và nhảy ](#5)
