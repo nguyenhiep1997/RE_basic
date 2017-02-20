@@ -22,16 +22,12 @@
  > - [1.2 download và cài đặt onllyDBG](#1.2)
 
  > - [1.3 các cửa sổ trong ollyDBG](#1.3)
+ 
  > <ul>
- 
  > <li>[1.3.1 The DISASSEMBLER Window ](#1.3.1)</li>
- 
  > <li>[1.3.2 The REGISTERs Window](#1.3.2)</li>
- 
  > <li>[1.3.3 The STACK Window](#1.3.3)</li>
- 
  > <li>[1.3.4 The DUMP Window](#1.3.4)</li>
- 
  > </ul>
  
  > - [1.4 một số phím tắt cơ bản ](#1.4)
