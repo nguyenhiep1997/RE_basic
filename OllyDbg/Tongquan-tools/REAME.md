@@ -25,8 +25,11 @@
  
  > <ul>
  > <li>[1.3.1 The DISASSEMBLER Window ](#1.3.1)</li>
+ 
  > <li>[1.3.2 The REGISTERs Window](#1.3.2)</li>
+ 
  > <li>[1.3.3 The STACK Window](#1.3.3)</li>
+ 
  > <li>[1.3.4 The DUMP Window](#1.3.4)</li>
  > </ul>
  
