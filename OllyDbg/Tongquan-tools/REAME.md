@@ -47,9 +47,7 @@
  
  > - [3.1 các thanh ghi chính ](#3.1)
  
- >    <ul>
- >   <li>[3.1.1 thay đổi số liệu các thanh ghi](#3.1.1)</li>
- >   </ul>
+ >      [3.1.1 thay đổi số liệu các thanh ghi](#3.1.1)
 
  > - [3.2 các thanh ghi cờ](#3.2)
 
