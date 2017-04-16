@@ -1011,11 +1011,11 @@ functions in DLLs.
 
  - tổng quan ta có các phương pháp anti - ollyDBG như sau
  <ul>
- <li>Sử dụng kĩ thuật “Self-Modifying-Code”, kết hợp với phá vỡ cấu trúc lệnh pushad/popad làm cho vùng Stack của Crackme bị thay đổi, gây ra exception.</li> 
- <li>Sử dụng một trick để anti-SoftIce đem áp dùng cho OllyDBG là int 68 để tạo ra exception.</li>
- <li>Sử dụng hàm CreateToolhelp32Snapshot và các API liên quan để lấy thông tin về các Process đang chạy trên hệ thống, sau đó đem so sánh với các chuỗi encrypt được decrypt về dạng clear text, nếu trình Debug/ Disassembler trùng tên với danh sách các black list thì sẽ gọi hàm TerminateProcess.</li>
- <li>Sử dụng hàm GetWindowsText để lấy thông tin về tiêu đê hay tên của trình Debug, sau đó cũng đem so sánh với một danh sách black list, nếu giống gọi hàm PostQuitMessage.</li>
-<li>Sử dụng hàm GetAsyncKeyState để phát hiện xem có nhấn phím Ctrl hay không, nếu có cũng sẽ gọi hàm PostQuitMessage.</li>
+ <li>Sử dụng kĩ thuật **“Self-Modifying-Code”**, kết hợp với phá vỡ cấu trúc lệnh `pushad/popad` làm cho vùng Stack của Crackme bị thay đổi, gây ra exception.</li> 
+ <li>Sử dụng một trick để anti-SoftIce đem áp dùng cho OllyDBG là `int 68 `để tạo ra exception.</li>
+ <li>Sử dụng hàm **CreateToolhelp32Snapshot** và các API liên quan để lấy thông tin về các Process đang chạy trên hệ thống, sau đó đem so sánh với các chuỗi encrypt được decrypt về dạng clear text, nếu trình Debug/ Disassembler trùng tên với danh sách các black list thì sẽ gọi hàm **TerminateProcess**.</li>
+ <li>Sử dụng hàm **GetWindowsText** để lấy thông tin về tiêu đê hay tên của trình Debug, sau đó cũng đem so sánh với một danh sách black list, nếu giống gọi hàm **PostQuitMessage**.</li>
+<li>Sử dụng hàm **GetAsyncKeyState** để phát hiện xem có nhấn phím Ctrl hay không, nếu có cũng sẽ gọi hàm **PostQuitMessage**.</li>
 </ul>
 
 
