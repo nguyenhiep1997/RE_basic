@@ -1,4 +1,4 @@
-##báo cáo : break poin & practice.
+##báo cáo : tổng quan về ollyDBG.
 
 > tài liệu tham khảo .
   [1. tut 10 - 27 ](http://bit.ly/2kh0KnB)
@@ -58,14 +58,15 @@
  - để quản lý các break poin chúng ta đã đặt thì có 1 công cụ đó là chữ B ở góc trên 
  ![h1](http://i.imgur.com/xju7O6G.png)
  - tại đây chúng ta có các tùy chọn chức năng như sau:
- <ul>
- <li>**Remove** : loại bỏ breakpoint ra khỏi danh sách các điểm đặt BP mà cửa sổ này quản lý.</li>
- <li> **Disable** : tạm thời disable bp của chúng ta mà không loại nó khỏi danh sách, khi cần ta lại active nó lên.</li>
- <li>**Edit Condition** : khi chọn chức năng này là ta đang muốn chuyển đổi bp của chúng ta sang một dạng khác là conditional bp, kiểu đặt bp này sẽ được bàn tới ở dưới.</li>
- <li> **Follow in Disassembler** : Với một danh sách dài các bp thì chúng ta khó có thể nhớ được nó liên quan tới đoạn code nào, tính năng này cho phép chúng ta tìm tới điểm mà chúng ta đặt bp tại cửa sổ code.</li>
- <li> **Disable all **: tương tự như tính năng Disable tuy nhiên có khác là nó sẽ disable hết toàn bộ các bp có trong cửa sổ Breakpoints.</li>
- <li>**Copy to clipboard** : sao chép thông tin về bp vào clipboard. Khi chọn tính năng này sẽ xuất hiện thêm một số chức năng con đi kèm
- </ul>
+<ul>
+<li>**Remove** : loại bỏ breakpoint ra khỏi danh sách các điểm đặt BP mà cửa sổ này quản lý.</li>
+<li> **Disable** : tạm thời disable bp của chúng ta mà không loại nó khỏi danh sách, khi cần ta lại active nó lên.</li>
+<li>**Edit Condition** : khi chọn chức năng này là ta đang muốn chuyển đổi bp của chúng ta sang một dạng khác là conditional bp, kiểu đặt bp này sẽ được bàn tới ở dưới.</li>
+<li> **Follow in Disassembler** : Với một danh sách dài các bp thì chúng ta khó có thể nhớ được nó liên quan tới đoạn code nào, tính năng này cho phép chúng ta tìm tới điểm mà chúng ta đặt bp tại cửa sổ code.</li>
+<li> **Disable all **: tương tự như tính năng Disable tuy nhiên có khác là nó sẽ disable hết toàn bộ các bp có trong cửa sổ Breakpoints.</li>
+<li>**Copy to clipboard** : sao chép thông tin về bp vào clipboard. Khi chọn tính năng này sẽ xuất hiện thêm một số chức năng con đi kèm
+</ul>
+ 
  - chọn chức năng Copy to Clipboard -> Whole line, tính năng này sẽ copy nguyên dòng mà chúng ta chỉ định. Còn Whole table sẽ copy toàn bộ tất cả những danh sách bp hiện có trong cửa sổ Breakpoints.
 
  - vậy câu hỏi đặt ra là điều gì đã làm chương trình dừng lại tại breakpoin , chúng ta sẽ tìm hiểu bằng ví dụ sau: load olly vào và tìm đến địa chỉ `0x00401018` , 
