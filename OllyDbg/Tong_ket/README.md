@@ -1,4 +1,4 @@
-##báo cáo : tổng quan về ollyDBG.
+## báo cáo : tổng quan về ollyDBG.
 
 > tài liệu tham khảo .
   [1. tut 10 - 27 ](http://bit.ly/2kh0KnB)
@@ -10,7 +10,7 @@
 > cập nhật lần cuối : 16/2/2017
 >---------
 
-###mục lục :
+### mục lục :
 
 > [1. break points trong ollyDBG ](#1)
 
@@ -47,9 +47,9 @@
 
 >----------------
 
-###1. break points trong ollyDBG <a name="1"></a>
+### 1. break points trong ollyDBG <a name="1"></a>
 
-####1.1 ommon Breakpoint or BPX <a name="1.1"></a>
+#### 1.1 ommon Breakpoint or BPX <a name="1.1"></a>
 
  - Đây có thể nói là phương pháp đặt breakpoint phổ biến mà chúng ta đã làm việc ngay từ các phần trước của bộ tuts này, nó còn được gọi là BPX bởi vì nó có nhiều điểm tương đồng với lệnh BPX của SoftIce (ai đã từng dùng qua SoftIce thì chắc là biết còn tôi chỉ đụng SoftIce đúng một lần duy nhất ), thay vì phải viết dài dòng là BreakPoint thì để tránh rườm rà trong quá trình làm việc thông qua Command Line, tác giả đã rút gọn lại là BPX, tuy nhiên trong Olly chữ “X” thường được sử dụng trong việc đặt BP với các hàm API (liên quan tới version của Windows) cho nên tác giả của Olly đã rút gọn lại và thêm một command khác mà ta hay dùng đó là BP (vừa có thể đặt BP tại API và address). Thông thường, đối với một câu lệnh nào đó mà chúng ta muốn đặt BPX lên nó thì đơn giản nhất ta chỉ việc chọn dòng lệnh mà ta muốn và nhấn F2, nếu nhấn F2 một lần nữa tức là ta remove BP khỏi câu lệnh.
 
@@ -59,12 +59,12 @@
  ![h1](http://i.imgur.com/xju7O6G.png)
  - tại đây chúng ta có các tùy chọn chức năng như sau:
 <ul>
-<li>**Remove** : loại bỏ breakpoint ra khỏi danh sách các điểm đặt BP mà cửa sổ này quản lý.</li>
+<li> **Remove** : loại bỏ breakpoint ra khỏi danh sách các điểm đặt BP mà cửa sổ này quản lý.</li>
 <li> **Disable** : tạm thời disable bp của chúng ta mà không loại nó khỏi danh sách, khi cần ta lại active nó lên.</li>
-<li>**Edit Condition** : khi chọn chức năng này là ta đang muốn chuyển đổi bp của chúng ta sang một dạng khác là conditional bp, kiểu đặt bp này sẽ được bàn tới ở dưới.</li>
+<li> **Edit Condition** : khi chọn chức năng này là ta đang muốn chuyển đổi bp của chúng ta sang một dạng khác là conditional bp, kiểu đặt bp này sẽ được bàn tới ở dưới.</li>
 <li> **Follow in Disassembler** : Với một danh sách dài các bp thì chúng ta khó có thể nhớ được nó liên quan tới đoạn code nào, tính năng này cho phép chúng ta tìm tới điểm mà chúng ta đặt bp tại cửa sổ code.</li>
 <li> **Disable all **: tương tự như tính năng Disable tuy nhiên có khác là nó sẽ disable hết toàn bộ các bp có trong cửa sổ Breakpoints.</li>
-<li>**Copy to clipboard** : sao chép thông tin về bp vào clipboard. Khi chọn tính năng này sẽ xuất hiện thêm một số chức năng con đi kèm
+<li> **Copy to clipboard** : sao chép thông tin về bp vào clipboard. Khi chọn tính năng này sẽ xuất hiện thêm một số chức năng con đi kèm
 </ul>
  
  - chọn chức năng Copy to Clipboard -> Whole line, tính năng này sẽ copy nguyên dòng mà chúng ta chỉ định. Còn Whole table sẽ copy toàn bộ tất cả những danh sách bp hiện có trong cửa sổ Breakpoints.
@@ -92,13 +92,14 @@
 
  - Ngoài việc hỗ trợ đặt BP thông qua phím F2 và thông qua command line, Olly còn hỗ trợ cho chúng ta việc đặt bp thông qua việc nhấn đúp chuột. Để thực hiện việc đặt bp tại một địa chỉ, bạn chỉ việc chọn cột Hex Dump tại cửa sổ CPU và nhấp đúp chuột lên đó.Nếu nhấp đúp chuột một lần nữa thì sẽ loại bỏ BP
 
-####1.2 Breakpoints on Memory (Memory Breakpoint)<a name="1.2"></a>
+#### 1.2 Breakpoints on Memory (Memory Breakpoint)<a name="1.2"></a>
 
  - Ở phần trên các bạn đã tìm hiểu về việc đặt breakpoint thông qua BP và BPX, tuy nhiên việc đặt bp này là đối với những câu lệnh hay những opcodes không bị thay đổi trong suốt quá trình thực thi chương trình. Còn ở phần này chúng ta sẽ tìm hiểu về việc đặt bp trên memory(nơi mà dữ liệu thường xuyên thay đổi). Tại một thời điểm Olly chỉ cho phép duy nhất một memory breakpoint. Olly hỗ trợ cho chúng ta hai kiểu đặt bp trên memory là : Breakpoint Memory on access và Breakpoint memory on write.Vậy hai cách đặt BP này có gì khác nhau :
  <ul>
- <li>**BreakPoint Memory on access**: Với kiểu đặt bp này lên một vùng nhớ sẽ cho phép chúng ta dừng sự thực thi của chương trình khi có bất kì một sự thực thi, đọc hay ghi lên vùng nhớ mà ta đã đặt bp.</li>
- <li>**BreakPoint Memory on write**: Khác một chút với kiểu đặt bp ở trên, kiểu này cho phép chúng ta dừng sự thực thi của chương trình khi có bất kì dữ liệu nào được ghi lên vùng nhớ mà ta đặt bp.</li>
+ <li> **BreakPoint Memory on access**: Với kiểu đặt bp này lên một vùng nhớ sẽ cho phép chúng ta dừng sự thực thi của chương trình khi có bất kì một sự thực thi, đọc hay ghi lên vùng nhớ mà ta đã đặt bp.</li>
+ <li> **BreakPoint Memory on write**: Khác một chút với kiểu đặt bp ở trên, kiểu này cho phép chúng ta dừng sự thực thi của chương trình khi có bất kì dữ liệu nào được ghi lên vùng nhớ mà ta đặt bp.</li>
  </ul>
+ 
  **lưu ý ** khác với breakpoin thông thường , khi ta đặt memory breakpoin , chúng ta phải đi đến cửa sổ dump và bôi đen các byte cần đặt BP để tiến hành đặt.
 
  - Olly chỉ cho phép tại một thời điểm có một memory bp duy nhất, nếu bạn đặt một bp khác thì bp đã đặt trước đó sẽ tự động bị loại bỏ.
@@ -116,7 +117,7 @@
  ![](http://i.imgur.com/xSjCl4q.png)
  - Vậy là địa chỉ hàm MessageBoxA của tôi là ở 0x7E45058A (trên máy các bạn có thể khác), lúc này tôi chỉ việc qua cửa sổ CPU và nhấn Ctrl+G, gõ địa chỉ này vào hoặc thay vào đó tôi gõ trực tiếp tên hàm vào và nhấn Ok, Olly sẽ đưa tôi đến đúng nơi cần tìm . sau đó ta đặt BP bằng cách nhấn chuột phải và chọn Memory on access.
 
-####1.3  Hardware Breakpoints<a name="1.3"></a>
+#### 1.3  Hardware Breakpoints<a name="1.3"></a>
 
 - `Hardware breakpoint (available only when running Debugger under Windows ME, NT, 2000 or XP). 80x86-compatible processors allow you to set 4 hardware breakpoints. Unlike memory breakpoint, hardware breakpoints do not slow down the execution speed, but cover only up to 4 bytes. OllyDbg can use hardware breakpoints instead of INT3 when stepping or tracing through the code.`
 
@@ -145,7 +146,7 @@
 
  - điểm đặc biệt khi ta đặt HWBP memory là khi có sự ghi hay đọc dữ liệu từ một byte ta đã đăth HWBP thì chương trình sẽ break trước câu lệnh đó chứ không phải break ngay tại câu lệnh đó .
 
-####1.4 Conditional Breakpoints <a name="1.4"></a>
+#### 1.4 Conditional Breakpoints <a name="1.4"></a>
 
  - Conditional Breakpoint là gì? Thử tra help của Olly xem có thông tin gì không, tôi có được như sau :
  
@@ -157,10 +158,17 @@
  ![10.9](http://i.imgur.com/AXg0RDm.png)
  - hay đơn giản hơn ta nhấn tổ hợp **shift + F2** để mở cửa sổ 
 
-####1.5 Conditional Log Breakpoints <a name="1.5"></a>
+#### 1.5 Conditional Log Breakpoints <a name="1.5"></a>
 
 ```
-Conditional logging breakpoint (Shift+F4) is a conditional breakpoint with the option to log the value of some expression or arguments of known function each time the breakpoint is encountered or when condition is met. For example, you can set logging breakpoint to some window procedure and list all calls to this procedure, or only identifiers of received WM_COMMAND messages, or set it to the call to CreateFile and log names of the files opened for read-only access etc. Logging breakpoints are as fast as conditional, and of course it's much easier to look through several hundred messages in the log window than to press F9 several hundred times. You can select one of several predefined interpretations to your expression.
+Conditional logging breakpoint (Shift+F4) is a conditional breakpoint with the option
+to log the value of some expression or arguments of known function each time the 
+breakpoint is encountered or when condition is met. For example, you can set logging breakpoint 
+to some window procedure and list all calls to this procedure, or only identifiers of 
+received WM_COMMAND messages, or set it to the call to CreateFile and log names of the files 
+opened for read-only access etc. Logging breakpoints are as fast as conditional, and of course it's 
+much easier to look through several hundred messages in the log window than to press 
+F9 several hundred times. You can select one of several predefined interpretations to your expression.
 ```
  - Bp này cũng là một dạng conditional bp tuy nhiên cao cấp hơn một chút. Nó có thêm tùy chọn cho phép ta lưu “vết” giá trị của biểu thức hoặc các tham sổ của function mỗi khi xảy ra bp hoặc khi thỏa mãn điều kiện mà ta đặt ra. Những thông tin này được lưu lại trong cửa sổ Log(L) của Olly. Thực hiện một ví dụ để minh họa, trước tiên chúng ta restart lại Olly cái đã. Sau đó nhấn Ctrl+G và tìm tới hàm MessageBoxA
 ![10.10](http://i.imgur.com/6azmmDR.png)
@@ -175,7 +183,7 @@ Conditional logging breakpoint (Shift+F4) is a conditional breakpoint with the o
   ![10.13](http://i.imgur.com/sWOfxz0.png)
   - các thông tin sẽ được lưu giữ tại cửa sổ log.
 
-####1.6 Message Breakpoints<a name="1.6"></a>
+#### 1.6 Message Breakpoints<a name="1.6"></a>
 
  - Message Breakpoint là gì nhỉ? Sao lại lắm lọai BP đến thế . Khi gặp bất kì những vấn đề nào mới, trong đầu tôi luôn xuất hiện những câu hỏi liên quan đến vấn đề đó. Sau đó, tôi tìm cách tiếp cận thông tin để giải quyết cho những câu hỏi của tôi. Trước tiên, tôi chẳng biết Message Breakoint nó là cái gì, cho nên tôi tra help của Olly trước, hi vọng sẽ tìm ra chút thông tin nào đó về nó. Đọc trong help file của Olly thì chỉ nhận được một chút thông tin như sau :
 
@@ -255,7 +263,7 @@ int 	nMaxCount 		// maximum size of string
  ![](http://i.imgur.com/tmYVFiY.png)
   - Không giống như đặt BP tại các hàm API là ta có thể đặt BP tại đầu hàm thì để đặt Message BP chúng ta phải làm việc với cửa sổ Windows. Hiện tại chương trình của chúng ta đang thực thi, chúng ta chuyển qua cửa sổ Window bằng cách nhấn vào nút W :
 
- - Sau khi bạn nhấn vào nút W thì cửa sổ Windows sẽ hiện ra. Nếu như bạn thấy nó trống trơn không có gì cả thì nhấn chuột phải và chọn **Actualize**. Kết quả ta có được như sau :
+ - Sau khi bạn nhấn vào nút W thì cửa sổ Windows sẽ hiện ra. Nếu như bạn thấy nó trống trơn không có gì cả thì nhấn chuột phải và chọn  **Actualize**. Kết quả ta có được như sau :
  ![](http://i.imgur.com/40TKH7U.png)
 
  - Như đã nói ở trên, mục đích của chúng ta là sau khi bấm Button Ok thì chương trình sẽ dừng lại. Vậy quan sát trong cửa sổ Windows, ở phần Class ta thấy có dòng Button, sau đó nhìn qua phần Title ta thấy được tên của Button là OK. Vậy đây chính là mục tiêu của chúng ta. Để đặt Message BP ta làm như sau, chuột phải tại nơi của Button OK và chọn **Message Breakpoint on ClassProc**. Cửa sổ cho phép ta thiết lập BP hiện ra :
@@ -319,7 +327,7 @@ lKeyData = 	lParam; 			// key data
 
  - Ngoài ra để kiểm soát toàn bộ các Message cho tất cả các chương trình chúng ta có thể đặt một BP conditional log tại các hàm APIs chuyên kiểm soát các Messages. Hai hàm API đó là TranslateMessage và DefWindowProc.
 
-###2. khái niệm về pack và unpack<a name="2"></a>
+### 2. khái niệm về pack và unpack<a name="2"></a>
 
  - Packer là một kiểu chương trình nén hoặc che dấu file thực thi (executable file). Các chương trình này ra đời bắt nguồn từ mục đích giảm kích thước của file, làm cho việc tải file nhanh hơn.
 
@@ -340,7 +348,7 @@ lKeyData = 	lParam; 			// key data
  - Pack file nghĩa là như thế nào? Tại sao phải kiểm tra xem có bị pack? Hiểu một cách đơn giản thì pack file là nén file thực thi (PE file : .dll, .exe, .ocx, v..v..) để làm giảm kích thước của file, việc nèn này ngoài việc nén code, data của chương trình thì trình packer còn thêm cả đoạn decompress stub vào PE file để làm nhiệm vụ unpack chương trình trong memory. Việc nén này không nên hiểu như ta dùng Winrar/Winzip để nén file, vì Winrar/Winzip sau khi nén file xong ta không thể thực thi file đó được mà ta phải làm một bước là extract file, sau đó mới run file
 
  - Khi một file không bị pack thì lúc ta load chương trình vào Olly ta sẽ dừng lại tại EP của chương trình (hay còn gọi là OEP gốc). Còn nếu chương trình đã bị pack, khi ta load vào Olly ta sẽ dừng lại tại EP của packer chứ không phải là EP của chương trình. Do đó nhiệm vụ của chúng ta là phải unpack chương trình trước đã (tức là ta đi tìm lại OEP gốc), rồi mới thực hiện các hướng tiếp cận khác. Đó chính là lý do tại sao ta phải kiểm tra chương trình. Vậy ta kiểm tra như thế nào? Tôi thường sử dụng một số chương trình sau để check :
-###3. các phím tắt và công cụ liên quan <a name="3"></a>
+### 3. các phím tắt và công cụ liên quan <a name="3"></a>
  -a) PeiD v0.94/v0.95
  ![](http://i.imgur.com/hngUYP7.png)
  - b) ExeInfo PE
@@ -497,11 +505,11 @@ If the function fails, the return value is zero.`
 
  - Ta dừng lại tại đoạn so sánh, để ý cửa sổ Tip Window ta sẽ thấy. Khà khà quá chuẩn rồi, nhấn F9 để thực thi chương trình các bạn sẽ nhận được good boy
 
-###4.  Fishing Serial <a name="4"></a>
+### 4.  Fishing Serial <a name="4"></a>
 
  - Chà Fishing Serial tức là gì nhỉ? Nghe như kiểu chúng ta đang đi câu cá, giữa một hồ cá rộng và sâu, làm sao ta câu được một con cá ưng ý. trong ngữ cảnh của Cracking thì ý nghĩa cũng gần như vậy. Fishing Serial ở đây có nghĩa là chúng ta đi câu Serial, mà phải là valid Serial nhé chứ câu lung tung là mệt và dễ stress. Đối với những bạn mới vào nghề thì việc tìm được một valid Serial luôn mang lại một cảm giác lâng lâng khó tả như tìm được một “kho báu” giữa lòng đại dương. 
 
-####4.1 LESSON 13 HARDCODED 1 <a name="4.1"></a>
+#### 4.1 LESSON 13 HARDCODED 1 <a name="4.1"></a>
 
  - Sau khi load vào Olly, ta dừng lại tại EP của crackme như các bạn thấy . Dòm qua cái code thấy quá trong sáng, các bạn sẽ bắt gặp cái thông báo Error :
 ```
@@ -566,11 +574,11 @@ If the function fails, the return value is zero.`
 
  - Nhập valid Serial vào, sau đó nhấn Verify. Olly sẽ break . Khà khà Serial đã hợp lệnh, câu lệnh so sánh đã thành công và lệnh nhảy sẽ được thực hiện.Nhấn F9 phát nữa nào và ta có được điều ta cần hehe
 
-####4.2 HARDCODED 2 <a name="4.2"></a>
+#### 4.2 HARDCODED 2 <a name="4.2"></a>
 
  - với HARDCODED 2 chúng ta cugr thực hiện tương tự như trên , các bạn tự mình tìm cách nhá.
 
-####4.3 Detten‟s crackme <a name="4.3"></a>
+#### 4.3 Detten‟s crackme <a name="4.3"></a>
 
  - đầu tiên ta load crackme vào ollyDBG để xem nó thế nào đã , sau khi lướt vào ta dừng lại tại OEP của nó ,tiền hành tìm kiếm thông tin về các hàm APIs được sử dụng trong crackme này bằng cách nhấn chuột phải và chọn **seach for** ta có kết quả như sau
 
@@ -600,7 +608,7 @@ If the function fails, the return value is zero.`
 
  - Khà khà vậy không còn nghi ngờ gì nữa, tới đây ta có thể hoàn toàn kết luận rằng chuỗi Hardcoded Serial của crackme này là “cannabis”.
 
- ###5. Detect OllyDbg – IsDebuggerPresent<a name="5"></a>
+ ### 5. Detect OllyDbg – IsDebuggerPresent<a name="5"></a>
 
  - đầu tiên để mở đầu chúng ta thực hiện với crack me ty123.
 
@@ -757,7 +765,7 @@ MOV EAX, FS:[18H]
 
  - Sau khi sửa xong, nhần F9 để thực thi chương trình. Olly sẽ break tại IsDebuggerPresent. Oh yeah!! Ta thấy gì nào, giá trị của EAX đã là 0 đồng nghĩa với việc chương trình không bị Debug lolz . Giờ ta nhần F9 một phát, crackme run vù vù :
 
-###6. Phân tích DaXXoR - Decryptme<a name="6"></a>
+### 6. Phân tích DaXXoR - Decryptme<a name="6"></a>
 
  - Ta đi tổng quan một chút, bình thường các bạn hay sử dụng Task Manager hay một chương trình nào đó để xem các Process đang chạy trên hệ thống của mình (Trên máy tôi sử dụng Process Explorer). Khi chúng ta đang chạy OllyDbg và xem danh sách các Process, ta sẽ thấy như sau :
  ![](http://i.imgur.com/SpreYw5.png)
@@ -905,7 +913,7 @@ functions in DLLs.
 
  - Cuối cùng là cách 3, đơn giản nhất mà lại hiệu quả cao. Ta đổi tên của OllyDbg thành tên bất kì mà ta muốn.
 
- ###7. Phân tích buggers3.exe<a name="7"></a>
+ ### 7. Phân tích buggers3.exe<a name="7"></a>
 
   - Ta sử dụng Plugin HideDebugger để bypass cơ chế Anti bằng IsDebuggerPresent. Ở đây tôi không quan tâm là target có sử dụng cơ chế này hay không, mục đích đơn giản là ta đã hiểu biết cơ chế này rồi, nếu như target này có sử dụng thì ta dùng plugin để bypass luôn cho đỡ mất thời gian :
 
